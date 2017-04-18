@@ -22,7 +22,7 @@ namespace GTest.Report
 
             foreach (var suite in report.TestSuites)
             {
-                Console.WriteLine(" * " + suite.Name);
+                Console.WriteLine(" • " + suite.Name);
                 foreach (var testCase in suite.TestCases)
                 {
                     Console.Write("   ");
