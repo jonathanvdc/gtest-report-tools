@@ -17,14 +17,23 @@ namespace GTest.Report
         /// <returns></returns>
         public static TestReport ParseReport(XmlDocument Document)
         {
+            TestReport result = null;
             foreach (XmlNode child in Document)
             {
                 if (child is XmlElement)
                 {
-                    return ParseReport(child);
+                    result = ParseReport(child);
+                    break;
                 }
             }
-            throw new Exception("XML document didn't contain any children.");
+            if (result == null)
+            {
+                throw new Exception("XML document didn't contain any children.");
+            }
+            else
+            {
+                return result;
+            }
         }
 
         /// <summary>
