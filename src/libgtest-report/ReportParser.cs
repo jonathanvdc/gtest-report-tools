@@ -61,7 +61,7 @@ namespace GTest.Report
             var failures = new List<string>();
             foreach (XmlNode child in CaseNode)
             {
-                XmlNode messageAttribute = CaseNode.Attributes["message"];
+                XmlNode messageAttribute = child.Attributes["message"];
                 failures.Add(messageAttribute.InnerText);
             }
             return new TestCase(
