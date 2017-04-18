@@ -9,9 +9,9 @@ install:
   - SET PATH=%PATH%;%cd%\ecsc\src\ecsc\bin\Release
 build_script:
   # Make the project.
-  - C:\cygwin\bin\bash -e -l -c "cd src"
+  - C:\cygwin\bin\bash -e -l -c "pushd %cd%\src"
   - C:\cygwin\bin\bash -e -l -c "make exe"
-  - C:\cygwin\bin\bash -e -l -c "cd .."
+  - C:\cygwin\bin\bash -e -l -c "popd"
 
 after_build:
   # Zip the compiled binaries.
