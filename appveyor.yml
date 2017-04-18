@@ -9,10 +9,7 @@ install:
   - SET PATH=%PATH%;%cd%\ecsc\src\ecsc\bin\Release
 build_script:
   # Make the project.
-  - C:\cygwin\bin\bash -e -l -c "pushd $(pwd)"
-  - C:\cygwin\bin\bash -e -l -c "cd %cd%\src"
-  - C:\cygwin\bin\bash -e -l -c "make exe"
-  - C:\cygwin\bin\bash -e -l -c "popd"
+  - C:\cygwin\bin\bash -e -l -c "cd /cygdrive/c/projects/gtest-report-tools/src; make exe"
 
 after_build:
   # Zip the compiled binaries.
