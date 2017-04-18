@@ -17,7 +17,14 @@ namespace GTest.Report
         /// <returns></returns>
         public static TestReport ParseReport(XmlDocument Document)
         {
-            return ParseReport((XmlElement)Document.FirstChild);
+            foreach (XmlNode child in Document)
+            {
+                if (child is XmlElement)
+                {
+                    return ParseReport(child);
+                }
+            }
+            throw new Exception("XML document didn't contain any children.");
         }
 
         /// <summary>
@@ -25,35 +32,35 @@ namespace GTest.Report
         /// </summary>
         /// <param name="ReportNode">The XML node to parse.</param>
         /// <returns></returns>
-        public static TestReport ParseReport(XmlElement ReportNode)
+        public static TestReport ParseReport(XmlNode ReportNode)
         {
-            XmlNode nameAttribute = ReportNode.GetAttributeNode("name");
+            XmlNode nameAttribute = ReportNode.Attributes["name"];
             var suites = new List<TestSuite>();
-            foreach (XmlElement child in ReportNode)
+            foreach (XmlNode child in ReportNode)
             {
                 suites.Add(ParseSuite(child));
             }
             return new TestReport(nameAttribute.InnerText, suites);
         }
 
-        private static TestSuite ParseSuite(XmlElement SuiteNode)
+        private static TestSuite ParseSuite(XmlNode SuiteNode)
         {
-            XmlNode nameAttribute = SuiteNode.GetAttributeNode("name");
+            XmlNode nameAttribute = SuiteNode.Attributes["name"];
             var cases = new List<TestCase>();
-            foreach (XmlElement child in SuiteNode)
+            foreach (XmlNode child in SuiteNode)
             {
                 cases.Add(ParseCase(child));
             }
             return new TestSuite(nameAttribute.InnerText, cases);
         }
 
-        private static TestCase ParseCase(XmlElement CaseNode)
+        private static TestCase ParseCase(XmlNode CaseNode)
         {
-            XmlNode nameAttribute = CaseNode.GetAttributeNode("name");
+            XmlNode nameAttribute = CaseNode.Attributes["name"];
             var failures = new List<string>();
-            foreach (XmlElement child in CaseNode)
+            foreach (XmlNode child in CaseNode)
             {
-                XmlNode messageAttribute = CaseNode.GetAttributeNode("message");
+                XmlNode messageAttribute = CaseNode.Attributes["message"];
                 failures.Add(messageAttribute.InnerText);
             }
             return new TestCase(nameAttribute.InnerText, failures);
