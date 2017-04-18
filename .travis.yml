@@ -1,7 +1,7 @@
 language: csharp
 install:
   # Clone, build and install ecsc.
-  - git clone --depth=5 https://github.com/jonathanvdc/ecsc
+  - git clone --depth=1 https://github.com/jonathanvdc/ecsc
   - nuget restore ecsc/src/ecsc.sln
   - xbuild /p:Configuration=Release ecsc/src/ecsc.sln
   - chmod +x $(pwd)/ecsc/src/ecsc/bin/Release/*.exe
