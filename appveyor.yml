@@ -1,0 +1,41 @@
+version: 0.1.0.{build}
+
+clone_depth: 50
+install:
+  # Download and build ecsc.
+  - git clone --depth=1 https://github.com/jonathanvdc/ecsc
+  - nuget restore ecsc\src\ecsc.sln
+  - msbuild /p:Configuration=Release ecsc\src\ecsc.sln
+  - SET PATH=%PATH%;%cd%\ecsc\src\ecsc\bin\Release
+build_script:
+  # Make the project.
+  - C:\cygwin\bin\bash -e -l -c "make -C src exe"
+
+after_build:
+  # Zip the compiled binaries.
+  - mkdir tools_build
+  - xcopy src\gtest-report-print\bin\clr\*.dll tools_build
+  - xcopy src\gtest-report-print\bin\clr\*.exe tools_build
+  - 7z a gtest-report-tools.zip %APPVEYOR_BUILD_FOLDER%\tools_build\*
+
+test_script:
+  - src\gtest-report-print\bin\clr\gtest-report-print.exe input\example-report.xml
+  - src\gtest-report-print\bin\clr\gtest-report-print.exe input\spec-report.xml
+
+artifacts:
+  - path: tools_build.zip
+    name: tools_build
+
+deploy:
+  - provider: GitHub
+    release: gtest report tools v$(SEMVER)
+    tag: $(APPVEYOR_REPO_TAG_NAME)
+    description: 'Release description' # Fill this out later.
+    auth_token:
+      secure: 693ZX2DdyyjDOqpJaJlUMO1hcMtLbsqMnCLzQVUEq7JjGb+bfEbaB/oMO0b26KZo
+    artifact: tools_build.zip # Release the zipped tools as an artifact.
+    draft: true  # Make this a draft.
+    prerelease: false
+    on:
+      branch: master # Release from master branch only.
+      appveyor_repo_tag: true # Deploy on tag push only.
