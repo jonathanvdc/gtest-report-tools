@@ -26,11 +26,23 @@ namespace GTest.Report
                 foreach (var testCase in suite.TestCases)
                 {
                     Console.Write("   ");
-                    Console.Write("✓");
+                    var oldColor = Console.ForegroundColor;
+                    if (testCase.HasFailed)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write("✗");
+                    }
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.Green;
+                        Console.Write("✓");
+                    }
+                    Console.ForegroundColor = oldColor;
                     Console.Write(" ");
                     Console.Write(testCase.Name);
                     Console.WriteLine();
                 }
+                Console.WriteLine();
             }
         }
     }
