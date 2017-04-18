@@ -23,8 +23,8 @@ test_script:
   - src\gtest-report-print\bin\clr\gtest-report-print.exe input\spec-report.xml
 
 artifacts:
-  - path: tools_build.zip
-    name: tools_build
+  - path: gtest-report-tools.zip
+    name: gtest-report-tools
 
 deploy:
   - provider: GitHub
@@ -33,7 +33,7 @@ deploy:
     description: 'Release description' # Fill this out later.
     auth_token:
       secure: 693ZX2DdyyjDOqpJaJlUMO1hcMtLbsqMnCLzQVUEq7JjGb+bfEbaB/oMO0b26KZo
-    artifact: tools_build.zip # Release the zipped tools as an artifact.
+    artifact: gtest-report-tools.zip # Release the zipped tools as an artifact.
     draft: true  # Make this a draft.
     prerelease: false
     on:
