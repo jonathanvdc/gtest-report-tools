@@ -13,10 +13,12 @@ namespace GTest.Report
         /// Creates a gtest test case from the given name and sequence of failures.
         /// </summary>
         /// <param name="Name">The test case's name.</param>
+        /// <param name="Duration">The amount of time spent in the test case.</param>
         /// <param name="Failures">The test case's sequence of failures.</param>
-        public TestCase(string Name, IEnumerable<string> Failures)
+        public TestCase(string Name, TimeSpan Duration, IEnumerable<string> Failures)
         {
             this.Name = Name;
+            this.Duration = Duration;
             this.Failures = Failures;
         }
 
@@ -25,6 +27,12 @@ namespace GTest.Report
         /// </summary>
         /// <returns>This test case's name.</returns>
         public string Name { get; private set; }
+
+        /// <summary>
+        /// Gets the amount of time spent in this test case.
+        /// </summary>
+        /// <returns>The amount of time spent in this test case.</returns>
+        public TimeSpan Duration { get; private set; }
 
         /// <summary>
         /// Gets the sequence of failures in this test case.

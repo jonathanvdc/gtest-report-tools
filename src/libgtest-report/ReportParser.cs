@@ -57,13 +57,17 @@ namespace GTest.Report
         private static TestCase ParseCase(XmlNode CaseNode)
         {
             XmlNode nameAttribute = CaseNode.Attributes["name"];
+            XmlNode timeAttribute = CaseNode.Attributes["time"];
             var failures = new List<string>();
             foreach (XmlNode child in CaseNode)
             {
                 XmlNode messageAttribute = CaseNode.Attributes["message"];
                 failures.Add(messageAttribute.InnerText);
             }
-            return new TestCase(nameAttribute.InnerText, failures);
+            return new TestCase(
+                nameAttribute.InnerText,
+                TimeSpan.FromSeconds(double.Parse(timeAttribute.InnerXml)),
+                failures);
         }
     }
 }
