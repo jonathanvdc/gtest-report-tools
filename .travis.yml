@@ -16,3 +16,4 @@ script:
   - make -C src exe
   # Pretty-print a report.
   - mono src/gtest-report-print/bin/clr/gtest-report-print.exe input/example-report.xml
+  - mono src/gtest-report-print/bin/clr/gtest-report-print.exe input/spec-report.xml
