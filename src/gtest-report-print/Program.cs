@@ -40,6 +40,9 @@ namespace GTest.Report
                     Console.ForegroundColor = oldColor;
                     Console.Write(" ");
                     Console.Write(testCase.Name);
+                    Console.Write(" (");
+                    Console.Write(testCase.Duration.TotalMilliseconds);
+                    Console.Write("ms)");
                     Console.WriteLine();
                 }
                 Console.WriteLine();
