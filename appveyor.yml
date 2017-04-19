@@ -28,7 +28,7 @@ artifacts:
 
 deploy:
   - provider: GitHub
-    release: gtest report tools v$(SEMVER)
+    release: gtest report tools
     tag: $(APPVEYOR_REPO_TAG_NAME)
     description: 'Release description' # Fill this out later.
     auth_token:
