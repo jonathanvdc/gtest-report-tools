@@ -13,7 +13,10 @@ install:
   - export PATH=$PATH:$(pwd)/ecsc/src/ecsc/bin/Release
 script:
   # Build the project with ecsc.
+  - make -C src nuget
   - make -C src exe
-  # Pretty-print a report.
+  # Pretty-print a couple of reports.
   - mono src/gtest-report-print/bin/clr/gtest-report-print.exe input/example-report.xml
   - mono src/gtest-report-print/bin/clr/gtest-report-print.exe input/spec-report.xml
+  # Compare the reports.
+  - mono src/gtest-report-html/bin/clr/gtest-report-html.exe input/example-report.xml input/spec-report.xml --css=resources/simple-style.css

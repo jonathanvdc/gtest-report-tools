@@ -9,7 +9,7 @@ install:
   - SET PATH=%PATH%;%cd%\ecsc\src\ecsc\bin\Release
 build_script:
   # Make the project.
-  - C:\cygwin\bin\bash -e -l -c "cd /cygdrive/c/projects/gtest-report-tools/src; make exe"
+  - C:\cygwin\bin\bash -e -l -c "cd /cygdrive/c/projects/gtest-report-tools/src; make nuget; make exe"
 
 after_build:
   # Zip the compiled binaries.
@@ -19,8 +19,11 @@ after_build:
   - 7z a gtest-report-tools.zip %APPVEYOR_BUILD_FOLDER%\tools_build\*
 
 test_script:
+  # Pretty-print a couple of reports
   - src\gtest-report-print\bin\clr\gtest-report-print.exe input\example-report.xml
   - src\gtest-report-print\bin\clr\gtest-report-print.exe input\spec-report.xml
+  # Compare the reports.
+  - src\gtest-report-html\bin\clr\gtest-report-html.exe input\example-report.xml input\spec-report.xml --css=resources\simple-style.css
 
 artifacts:
   - path: gtest-report-tools.zip
