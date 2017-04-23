@@ -31,5 +31,41 @@ namespace GTest.Report
         /// </summary>
         /// <returns>The sequence of test cases in this suite.</returns>
         public IEnumerable<TestCase> TestCases { get; private set; }
+
+        /// <summary>
+        /// Creates an equivalent test suite whose test cases are sorted by name.
+        /// </summary>
+        /// <returns>An equivalent test suite whose test cases are sorted by name.</returns>
+        public TestSuite OrderByName()
+        {
+            var testCaseList = TestCases.ToList<TestCase>();
+            testCaseList.Sort(TestCaseNameComparer.Instance);
+            return new TestSuite(Name, testCaseList);
+        }
+    }
+
+    /// <summary>
+    /// Compares test suites by name.
+    /// </summary>
+    public sealed class TestSuiteNameComparer : IEqualityComparer<TestSuite>, IComparer<TestSuite>
+    {
+        private TestSuiteNameComparer() { }
+
+        public static readonly TestSuiteNameComparer Instance = new TestSuiteNameComparer();
+
+        public bool Equals(TestSuite First, TestSuite Second)
+        {
+            return First.Name == Second.Name;
+        }
+
+        public int GetHashCode(TestSuite Case)
+        {
+            return Case.Name.GetHashCode();
+        }
+
+        public int Compare(TestSuite First, TestSuite Second)
+        {
+            return StringComparer.InvariantCulture.Compare(First.Name, Second.Name);
+        }
     }
 }

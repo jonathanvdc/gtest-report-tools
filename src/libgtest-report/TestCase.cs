@@ -46,4 +46,29 @@ namespace GTest.Report
         /// <returns>A Boolean value that tells if this test case contains any failures.</returns>
         public bool HasFailed => Enumerable.Any<string>(Failures);
     }
+
+    /// <summary>
+    /// Compares test cases by name.
+    /// </summary>
+    public sealed class TestCaseNameComparer : IEqualityComparer<TestCase>, IComparer<TestCase>
+    {
+        private TestCaseNameComparer() { }
+
+        public static readonly TestCaseNameComparer Instance = new TestCaseNameComparer();
+
+        public bool Equals(TestCase First, TestCase Second)
+        {
+            return First.Name == Second.Name;
+        }
+
+        public int GetHashCode(TestCase Case)
+        {
+            return Case.Name.GetHashCode();
+        }
+
+        public int Compare(TestCase First, TestCase Second)
+        {
+            return StringComparer.InvariantCulture.Compare(First.Name, Second.Name);
+        }
+    }
 }

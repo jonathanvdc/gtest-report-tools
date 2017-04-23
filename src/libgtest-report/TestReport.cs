@@ -31,5 +31,20 @@ namespace GTest.Report
         /// </summary>
         /// <returns>The sequence of test suites in this run.</returns>
         public IEnumerable<TestSuite> TestSuites { get; private set; }
+
+        /// <summary>
+        /// Creates an equivalent test report whose test suites and cases are sorted by name.
+        /// </summary>
+        /// <returns>An equivalent test report whose test suites and cases are sorted by name.</returns>
+        public TestReport OrderByName()
+        {
+            var testSuiteList = new List<TestSuite>();
+            foreach (var suite in TestSuites)
+            {
+                testSuiteList.Add(suite.OrderByName());
+            }
+            testSuiteList.Sort(TestSuiteNameComparer.Instance);
+            return new TestReport(Name, testSuiteList);
+        }
     }
 }
