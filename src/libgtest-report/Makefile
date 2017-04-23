@@ -1,6 +1,6 @@
 files = $(shell find . -name '*.cs')
 
-common_options = -asm-name=libgtest-report -asm-version=0.1.0.0 -Wall -Wextra -force-write -rt-libs System.Xml
+common_options = -asm-name=libgtest-report -asm-version=0.1.2.0 -Wall -Wextra -force-write -rt-libs System.Xml
 
 all: dll flo
 

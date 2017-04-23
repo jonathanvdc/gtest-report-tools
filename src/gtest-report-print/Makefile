@@ -1,7 +1,7 @@
 files = $(shell find . -name '*.cs') \
 		../libgtest-report/bin/flo/libgtest-report.flo
 
-common_options = -asm-name=gtest-report-print -asm-version=0.1.0.0 -Wall -Wextra -force-write -rt-libs System.Xml
+common_options = -asm-name=gtest-report-print -asm-version=0.1.2.0 -Wall -Wextra -force-write -rt-libs System.Xml
 
 all: exe flo
 

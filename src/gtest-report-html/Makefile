@@ -4,7 +4,7 @@ files = $(shell find . -name '*.cs') \
 libs = ../packages/DotArguments.0.3.1/lib/DotArguments.dll \
 	../packages/HtmlAgilityPack.1.4.9.5/lib/Net45/HtmlAgilityPack.dll
 
-common_options = -asm-name=gtest-report-html -asm-version=0.1.0.0 -Wall -Wextra -force-write -fno-whole-program -rt-libs System.Xml -libs $(libs)
+common_options = -asm-name=gtest-report-html -asm-version=0.1.2.0 -Wall -Wextra -force-write -fno-whole-program -rt-libs System.Xml -libs $(libs)
 
 all: exe flo
 
