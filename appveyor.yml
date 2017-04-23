@@ -14,8 +14,12 @@ build_script:
 after_build:
   # Zip the compiled binaries.
   - mkdir tools_build
+  - mkdir tools_build\resources
   - xcopy src\gtest-report-print\bin\clr\*.dll tools_build
   - xcopy src\gtest-report-print\bin\clr\*.exe tools_build
+  - xcopy src\gtest-report-html\bin\clr\*.dll tools_build
+  - xcopy src\gtest-report-html\bin\clr\*.exe tools_build
+  - xcopy resources\* tools_build\resources
   - 7z a gtest-report-tools.zip %APPVEYOR_BUILD_FOLDER%\tools_build\*
 
 test_script:
