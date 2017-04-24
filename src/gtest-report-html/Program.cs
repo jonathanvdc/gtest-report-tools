@@ -24,11 +24,12 @@ namespace GTest.Report
 
     public static class Program
     {
-        public static void Main(string[] Args)
+        public static int Main(string[] Args)
         {
             var definition = new ArgumentDefinition(new HtmlReportArguments().GetType());
             var parser = new GNUArgumentParser();
 
+            int exitCode = 0;
             try
             {
                 var arguments = parser.Parse<HtmlReportArguments>(definition, Args);
@@ -42,15 +43,15 @@ namespace GTest.Report
                 var htmlDoc = CreateComparisonHtml(cssCode, reports);
                 htmlDoc.Save(Console.Out);
                 Console.WriteLine();
-                Environment.Exit(0);
             }
             catch (Exception ex)
             {
                 Console.Error.WriteLine("error: {0}", ex.Message);
                 Console.Error.Write("usage: {0}", parser.GenerateUsageString(definition));
 
-                Environment.Exit(1);
+                exitCode = 1;
             }
+            return exitCode;
         }
 
         /// <summary>
